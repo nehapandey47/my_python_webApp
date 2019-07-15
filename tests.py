@@ -7,8 +7,8 @@ class FlaskTestCase(unittest.TestCase):
         tester = app.test_client(self)
         response = tester.get("/home")
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(b'Welcome to Kinetic Labs' in response.data)
-        self.assertTrue(b'New messages every time you refresh' in response.data)
+        self.assertTrue(b'Welcome to  Wipro digital' in response.data)
+        self.assertTrue(b'Thanks for your reviews :)' in response.data)
 
     def test_aboutpage(self):
         tester = app.test_client(self)
