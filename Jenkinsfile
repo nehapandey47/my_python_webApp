@@ -7,19 +7,8 @@ pipeline{
  
        }
     stages{
-        stage('checkout'){
-            steps{
-               // git 'https://github.com/nehapandey47/my_python_webApp.git'
-                  withCredentials([string(credentialsId: 'neha_app', variable: 'git')]) {
-                  echo "My password is '${git}'!"
-                  checkout([$class: 'GitSCM',
-                  branches: [[name: 'origin/master']],
-                  extensions: [[$class: 'WipeWorkspace']],
-                  userRemoteConfigs: [[url: "${git}"]]
-                 ])
-            }
-            }
-        }
+      
+        
         
      stage ('dependencies'){
             steps{
