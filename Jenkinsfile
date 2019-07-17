@@ -30,7 +30,7 @@ pipeline{
                  scannerHome=tool 'sonar scanner'
             }
               steps{
-             sh 'coverage html tests.py'
+             sh 'coverage xml tests.py'
 
            sh '${scannerHome}/bin/sonar-scanner -Dproject.settings=./sonar-project.properties'
          
