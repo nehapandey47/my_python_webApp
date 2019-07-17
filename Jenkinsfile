@@ -60,12 +60,21 @@ pipeline{
         sh "JENKINS_NODE_COOKIE=dontKillMe forever start -c python flaskblog.py -a -uid mypyapp"
          
         }
-    }
-     
-         
-        
+        }
         
     }
+     post {
+    success {
+      slackSend (color: '#00FF00', message: "SUCCESSFUL: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+    }
+    failure {
+      slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+    }
+  }
+    
+    
+    
+    
 }
     
     
