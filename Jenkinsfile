@@ -30,6 +30,7 @@ pipeline{
                  scannerHome=tool 'sonar scanner'
             }
               steps{
+                  sh 'coverage report'
              sh 'coverage xml tests.py'
 
            sh '${scannerHome}/bin/sonar-scanner -Dproject.settings=./sonar-project.properties'
@@ -40,8 +41,7 @@ pipeline{
         {
             steps
             {
-                 
-                sh 'zip -r neha.zip .'
+                               sh 'zip -r neha.zip .'
             }
         }
         stage ( 'Uploading to nexus')
