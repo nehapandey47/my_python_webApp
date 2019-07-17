@@ -10,7 +10,7 @@ pipeline{
       
         
         
-     stage ('dependencies'){
+     stage ('Installing dependencies'){
             steps{
               
                     sh 'pip install -r requirements.txt'
@@ -20,12 +20,12 @@ pipeline{
            
         stage ('Testing'){
             steps{
-         // echo "test"
+         
         sh 'coverage run tests.py'
             }
         }
         
-          stage ('Analysis'){
+          stage ('Sonar Code Analysis'){
               environment {
                  scannerHome=tool 'sonar scanner'
             }
@@ -36,7 +36,7 @@ pipeline{
          
               }
           }
-          stage ('zip')
+          stage ('zipping files')
         {
             steps
             {
@@ -44,7 +44,7 @@ pipeline{
                 sh 'zip -r neha.zip .'
             }
         }
-        stage ( 'nexus')
+        stage ( 'Uploading to nexus')
         {
             steps{
                 withCredentials([usernamePassword(credentialsId: 'sudipa_nexus', passwordVariable: 'pass', usernameVariable: 'usr')]){
@@ -53,38 +53,16 @@ pipeline{
             
         }
         }
+            
           
-          
-          
-          
-          
-          
-          
-          
-          stage ('Deploy'){
+        stage ('Deployment'){
       steps{
         sh "JENKINS_NODE_COOKIE=dontKillMe forever start -c python flaskblog.py -a -uid mypyapp"
          
         }
     }
      
-          
-          
-          
-          
-          
-          
-          
-        
-    //  stage ('Deploy'){
-    //   steps{
-    //      //   sh 'python flaskblog.py'
-    //      sh 'whoami'
-    //          sh '''nohup python flaskblog.py %26'''
-    //      sh 'curl localhost:5000;ps ax | grep flaskblog.py'
          
-    //          }
-    //      }
         
         
     }
