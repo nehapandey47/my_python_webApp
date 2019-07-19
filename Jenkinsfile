@@ -57,7 +57,10 @@ pipeline{
           
         stage ('Deployment'){
       steps{
-        sh "JENKINS_NODE_COOKIE=dontKillMe forever start -c python flaskblog.py -a -uid mypyapp"
+        sh 'forever stopall'
+        sh "JENKINS_NODE_COOKIE=dontKillMe forever start -c python flaskblog.py -a -uid mypyapp &"
+        sh 'sleep 1m'
+        sh 'forever stopall'
          
         }
         }
