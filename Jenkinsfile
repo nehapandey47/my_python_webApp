@@ -1,30 +1,23 @@
 pipeline{
     agent any
-       environment {
-        
+    environment {
          FLASK_APP='hello_flask.py'
          FLASK_ENV='production'
- 
        }
-    stages{
-      
-        
-        
+    stages{    
      stage ('Installing dependencies'){
             steps{
               
-                    sh 'pip install -r requirements.txt'
+                 sh 'pip install -r requirements.txt'
                
             }
         }
            
         stage ('Testing'){
             steps{
-         
         sh 'coverage run tests.py'
             }
         }
-        
           stage ('Sonar Code Analysis'){
               environment {
                  scannerHome=tool 'sonar scanner'
@@ -55,7 +48,7 @@ pipeline{
         }
             
           
-        stage ('Deployment'){
+      /*  stage ('Deployment'){
       steps{
         //sh 'forever stopall'
         sh "JENKINS_NODE_COOKIE=dontKillMe forever start -c python flaskblog.py -a -uid mypyapp &"
@@ -63,7 +56,7 @@ pipeline{
         sh 'forever stopall'
          
         }
-        }
+        } */
         
     }
      post {
